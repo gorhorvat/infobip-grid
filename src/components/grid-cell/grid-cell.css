@@ -1,0 +1,12 @@
+.grid-cell {
+  text-align: center;
+  cursor: pointer;
+}
+
+.grid-cell--inactive {
+  background-color: red;
+}
+
+.grid-cell--active {
+  background-color: blue;
+}
