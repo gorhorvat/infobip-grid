@@ -51,7 +51,7 @@ class Grid extends Component<Props> {
         cells.push(
           <GridCell
             key={newCell.id}
-            cell={newCell}
+            cell={this.cells.find(cell => cell.id === newCell.id)!}
             onCellClick={() => this.handleCellClick(newCell)}
           />
         );
@@ -62,11 +62,12 @@ class Grid extends Component<Props> {
   };
 
   getRandomValue = (): number => {
-    let limit: number = this.props.columns * this.props.rows;
-    if (limit > this.maxNumberOfCells) {
-      limit = this.maxNumberOfCells;
+    let numberOfCells: number = this.props.columns * this.props.rows;
+    if (numberOfCells > this.maxNumberOfCells) {
+      numberOfCells = this.maxNumberOfCells;
     }
-    let randomNumber: number = Math.floor(Math.random() * limit) + 1;
+
+    let randomNumber: number = Math.floor(Math.random() * numberOfCells) + 1;
 
     if (!this.cells.find(cell => cell.value === randomNumber)) {
       return randomNumber;
@@ -80,12 +81,12 @@ class Grid extends Component<Props> {
   };
 
   @action
-  handleCellClick = (newCell: CellModel) => {
-    const foundCell: CellModel | undefined = this.cells.find(
-      cell => cell.id === newCell.id
+  handleCellClick = (editedCell: CellModel) => {
+    const cellIndex: number = this.cells.findIndex(
+      cell => cell.id === editedCell.id
     );
-    if (foundCell) {
-      foundCell.isClicked = !foundCell.isClicked;
+    if (cellIndex >= 0) {
+      this.cells[cellIndex].isClicked = !this.cells[cellIndex].isClicked;
     }
   };
 

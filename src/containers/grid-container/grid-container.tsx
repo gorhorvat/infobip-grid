@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 @observer
 class GridContainer extends Component {
   render() {
-    return <Grid columns={10} rows={13} size='large' />;
+    return <Grid columns={9} rows={7} size='large' />;
   }
 }
 
