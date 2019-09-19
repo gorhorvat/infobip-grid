@@ -1,8 +1,10 @@
-import React from 'react';
-import CellModel from '../../models/cell-model';
-import './grid-cell.css';
-import classNames from 'classnames';
 import { observer } from 'mobx-react';
+import React from 'react';
+import classNames from 'classnames';
+
+import CellModel from '../../models/cell-model';
+
+import './grid-cell.less';
 
 interface Props {
   cell: CellModel;

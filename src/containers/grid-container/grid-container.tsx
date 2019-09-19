@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import Grid from '../../components/grid/grid';
 import { observer } from 'mobx-react';
+import React, { Component } from 'react';
+
+import Grid from '../../components/grid/grid';
 
 @observer
 class GridContainer extends Component {
   render() {
-    return <Grid columns={9} rows={7} size='large' />;
+    return <Grid columns={10} rows={9} size='large' />;
   }
 }
 

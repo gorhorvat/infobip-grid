@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import './grid.css';
+import classNames from 'classnames';
+import React, { Component } from 'react';
+
 import GridCell from '../grid-cell/grid-cell';
 import CellModel from '../../models/cell-model';
-import classNames from 'classnames';
+
+import './grid.less';
 
 interface Props {
   columns: number;
@@ -19,40 +21,48 @@ class Grid extends Component<Props> {
   @observable private cells: CellModel[] = [];
   private readonly maxNumberOfCells: number = 99;
 
-  renderTable = () => {
+  render() {
+    return (
+      <div className={classNames('grid', `grid--${this.props.size}`)}>
+        {this.renderTable()}
+      </div>
+    );
+  }
+
+  private renderTable = (): JSX.Element => {
     return (
       <table>
-        <tbody>{this.getRows()}</tbody>
+        <tbody>{this.renderRows()}</tbody>
       </table>
     );
   };
 
-  getRows = () => {
+  private renderRows = (): JSX.Element[] => {
     let rows: JSX.Element[] = [];
-    for (let row = 0; row < this.props.columns; row++) {
-      rows.push(<tr key={row}>{this.getRowCells()}</tr>);
+    for (let row = 0; row < this.props.rows; row++) {
+      rows.push(<tr key={row}>{this.renderCells()}</tr>);
     }
 
     return rows;
   };
 
-  getRowCells = () => {
-    let cells: JSX.Element[] = [];
-    for (let col = 0; col < this.props.rows; col++) {
+  private renderCells = (): JSX.Element[] => {
+    const cells: JSX.Element[] = [];
+    for (let col = 0; col < this.props.columns; col++) {
       if (this.cells.length < this.maxNumberOfCells) {
-        const newCell: CellModel = {
+        this.addCell({
           id: this.cells.length,
           value: this.getRandomValue(),
           isClicked: false
-        };
+        });
 
-        this.addCell(newCell);
+        const activeCell: CellModel = this.getActiveCell();
 
         cells.push(
           <GridCell
-            key={newCell.id}
-            cell={this.cells.find(cell => cell.id === newCell.id)!}
-            onCellClick={() => this.handleCellClick(newCell)}
+            key={activeCell.id}
+            cell={activeCell}
+            onCellClick={() => this.handleCellClick(activeCell)}
           />
         );
       }
@@ -61,13 +71,13 @@ class Grid extends Component<Props> {
     return cells;
   };
 
-  getRandomValue = (): number => {
+  private getRandomValue = (): number => {
     let numberOfCells: number = this.props.columns * this.props.rows;
     if (numberOfCells > this.maxNumberOfCells) {
       numberOfCells = this.maxNumberOfCells;
     }
 
-    let randomNumber: number = Math.floor(Math.random() * numberOfCells) + 1;
+    const randomNumber: number = Math.floor(Math.random() * numberOfCells) + 1;
 
     if (!this.cells.find(cell => cell.value === randomNumber)) {
       return randomNumber;
@@ -75,13 +85,17 @@ class Grid extends Component<Props> {
     return this.getRandomValue();
   };
 
+  private getActiveCell = (): CellModel => {
+    return this.cells.find(cell => cell.id === this.cells[this.cells.length -1].id)!;
+  }
+
   @action
-  addCell = (newCell: CellModel) => {
+  private addCell = (newCell: CellModel): void => {
     this.cells.push(newCell);
   };
 
   @action
-  handleCellClick = (editedCell: CellModel) => {
+  private handleCellClick = (editedCell: CellModel): void => {
     const cellIndex: number = this.cells.findIndex(
       cell => cell.id === editedCell.id
     );
@@ -89,14 +103,6 @@ class Grid extends Component<Props> {
       this.cells[cellIndex].isClicked = !this.cells[cellIndex].isClicked;
     }
   };
-
-  render() {
-    return (
-      <div className={classNames('grid', `grid--${this.props.size}`)}>
-        {this.renderTable()}
-      </div>
-    );
-  }
 }
 
 export default Grid;
