@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Grid Renders without crashing 1`] = `
+<div
+  className="grid grid--small"
+>
+  <table>
+    <tbody>
+      <tr
+        key="0"
+      >
+        <GridCell
+          cell={
+            Object {
+              "id": 0,
+              "isClicked": false,
+              "value": 1,
+            }
+          }
+          key="0"
+          onCellClick={[Function]}
+        />
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

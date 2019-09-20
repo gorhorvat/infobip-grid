@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GridCell Renders without crashing 1`] = `
+<td
+  className="grid-cell grid-cell--inactive"
+  key="0"
+  onClick={[MockFunction]}
+/>
+`;
+
+exports[`GridCell When cell is clicked should not show value 1`] = `
+<td
+  className="grid-cell grid-cell--inactive"
+  key="0"
+  onClick={[MockFunction]}
+/>
+`;
+
+exports[`GridCell When cell is clicked should show value 1`] = `
+<td
+  className="grid-cell grid-cell--active"
+  key="0"
+  onClick={[MockFunction]}
+>
+  1
+</td>
+`;

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GridContainer Renders without crashing 1`] = `
+<Grid
+  columns={10}
+  rows={9}
+  size="large"
+/>
+`;

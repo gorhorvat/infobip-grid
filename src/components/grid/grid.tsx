@@ -86,7 +86,7 @@ class Grid extends Component<Props> {
   };
 
   private getActiveCell = (): CellModel => {
-    return this.cells.find(cell => cell.id === this.cells[this.cells.length -1].id)!;
+    return this.cells.find(cell => cell.id === this.cells[this.cells.length - 1].id)!;
   }
 
   @action
@@ -99,9 +99,8 @@ class Grid extends Component<Props> {
     const cellIndex: number = this.cells.findIndex(
       cell => cell.id === editedCell.id
     );
-    if (cellIndex >= 0) {
-      this.cells[cellIndex].isClicked = !this.cells[cellIndex].isClicked;
-    }
+
+    this.cells[cellIndex].isClicked = !this.cells[cellIndex].isClicked;
   };
 }
 
